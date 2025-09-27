@@ -1,5 +1,5 @@
 import express from 'express';
-import MonnifySDK from '../index';
+import MonnifySDK from '../src';
 
 const app = express();
 app.use(express.json());

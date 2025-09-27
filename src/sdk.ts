@@ -275,7 +275,3 @@ export class MonnifySDK {
     return hash === signature;
   }
 }
-
-// Export SDK class as default and all types
-export default MonnifySDK;
-export * from './types';

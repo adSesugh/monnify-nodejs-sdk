@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import MonnifySDK, { MonnifyError } from '../index';
+import MonnifySDK, { MonnifyError } from '../src';
 
 // Initialize SDK
 const monnify = new MonnifySDK({
