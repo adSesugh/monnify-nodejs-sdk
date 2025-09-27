@@ -1,6 +1,6 @@
 # Changelog
 
-### v1.0.0
+### [v1.0.0] - 2025-09-27
 - Initial release with complete Monnify API coverage
 - 40+ API methods across all endpoints
 - Core features: Transactions, Reserved Accounts, Transfers
@@ -13,7 +13,7 @@
 - Webhook signature verification
 - Automatic token management
 
-## [1.0.1] - 2025-09-27
+## [v1.0.1] - 2025-09-27
 
 🎉 First full-feature release with **complete Monnify API coverage**
 
