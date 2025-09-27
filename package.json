@@ -1,6 +1,6 @@
 {
   "name": "@adsesugh/monnify-nodejs-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Monnify Payment Gateway SDK — Accept payments directly on your website via cards, bank transfers or USSD from customers. Integrate multiple payment options on your website or app & increase your conversion rate.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
