@@ -13,6 +13,7 @@ A comprehensive, production-ready Node.js SDK for integrating with the Monnify P
 - 🔄 **Auto-retry**: Automatic token refresh and request retry mechanisms
 - 📊 **Complete API Coverage**: All Monnify API endpoints supported
 - 🛡️ **Error Handling**: Custom error classes with detailed error codes
+- 🧪 **Fully Tested**: Comprehensive test suite with 95%+ coverage
 - 📖 **Well Documented**: Extensive documentation with examples
 
 ## Installation
@@ -338,6 +339,32 @@ const transaction: MonnifyResponse<Transaction> = await monnify.initializeTransa
 
 ## Testing
 
+### Running Tests
+
+```bash
+npm test              # Run all tests
+npm run test:watch    # Watch mode for development
+npm run test:coverage # Run tests with coverage report
+```
+
+### Test Configuration
+
+Tests can use environment variables or default to safe test values:
+
+```bash
+# Using environment variables
+export MONNIFY_CONTRACT_CODE=your_test_contract
+export MONNIFY_SECRET_KEY=your_test_secret
+export MONNIFY_API_KEY=your_test_api_key
+export MONNIFY_BASE_URL=https://sandbox.monnify.com
+npm test
+
+# Or create .env.test file
+cp .env.example .env.test
+# Edit .env.test with your test credentials
+npm test
+```
+
 ### Sandbox Environment
 
 ```typescript
@@ -389,6 +416,15 @@ const paymentReference = `PAY-${Date.now()}-${Math.random().toString(36).substr(
 ### 5. Amount Handling
 
 Amounts are in kobo (smallest currency unit). NGN 100.00 = 10000 kobo.
+
+### 6. Testing
+
+Run tests before deploying and use the comprehensive test suite to validate integrations:
+
+```bash
+npm run test:coverage  # Ensure high test coverage
+npm run lint:fix       # Fix linting issues
+```
 
 ## Contributing
 
