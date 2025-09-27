@@ -1,5 +1,18 @@
 # Changelog
 
+### v1.0.0
+- Initial release with complete Monnify API coverage
+- 40+ API methods across all endpoints
+- Core features: Transactions, Reserved Accounts, Transfers
+- Advanced features: Sub-accounts, Invoices, Refunds, Settlements
+- Payment methods: Cards, Bank transfers, USSD, Direct debit
+- Business tools: Card tokenization, BVN verification, Payment links
+- TypeScript support with comprehensive type definitions
+- Production-ready error handling and retry logic
+- Comprehensive test suite with 95%+ coverage
+- Webhook signature verification
+- Automatic token management
+
 ## [1.0.1] - 2025-09-27
 
 🎉 First full-feature release with **complete Monnify API coverage**
