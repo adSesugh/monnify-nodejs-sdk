@@ -392,11 +392,31 @@ Amounts are in kobo (smallest currency unit). NGN 100.00 = 10000 kobo.
 
 ## Contributing
 
+We welcome contributions! Please follow these guidelines:
+
+### Code Standards
+- **Documentation is mandatory**: All code must include comprehensive comments explaining functionality
+- Follow existing code style and patterns
+- Include TypeScript types for all new features
+- Add examples for new API methods
+
+### Process
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+3. **Document your code**: Add clear comments explaining what your code does and why
+4. Run linting: `npm run lint:fix`
+5. Test your changes with examples
+6. Commit your changes (`git commit -m 'Add some amazing feature'`)
+7. Push to the branch (`git push origin feature/amazing-feature`)
+8. Open a Pull Request
+
+### Documentation Requirements
+- All public methods must have JSDoc comments
+- Complex logic must be explained with inline comments
+- New features require usage examples
+- Update README.md if adding new functionality
+
+**Note**: Pull requests without proper code documentation will not be accepted.
 
 ## License
 
