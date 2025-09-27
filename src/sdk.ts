@@ -274,4 +274,191 @@ export class MonnifySDK {
     // Compare computed hash with provided signature
     return hash === signature;
   }
+
+  // === SUB-ACCOUNT APIs ===
+  
+  // Create a new sub-account
+  async createSubAccount(request: types.SubAccountRequest): Promise<types.MonnifyResponse<types.SubAccount>> {
+    return this.makeRequest('POST', '/api/v1/sub-accounts', request);
+  }
+
+  // Get all sub-accounts
+  async getSubAccounts(page: number = 0, size: number = 10): Promise<types.MonnifyResponse<{ content: types.SubAccount[] }>> {
+    return this.makeRequest('GET', `/api/v1/sub-accounts?page=${page}&size=${size}`);
+  }
+
+  // Update sub-account
+  async updateSubAccount(subAccountCode: string, request: Partial<types.SubAccountRequest>): Promise<types.MonnifyResponse<types.SubAccount>> {
+    if (!subAccountCode) {
+      throw new MonnifyError('Sub-account code is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('PUT', `/api/v1/sub-accounts/${encodeURIComponent(subAccountCode)}`, request);
+  }
+
+  // Delete sub-account
+  async deleteSubAccount(subAccountCode: string): Promise<types.MonnifyResponse<void>> {
+    if (!subAccountCode) {
+      throw new MonnifyError('Sub-account code is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('DELETE', `/api/v1/sub-accounts/${encodeURIComponent(subAccountCode)}`);
+  }
+
+  // === INVOICE APIs ===
+  
+  // Create invoice
+  async createInvoice(request: types.InvoiceRequest): Promise<types.MonnifyResponse<types.Invoice>> {
+    return this.makeRequest('POST', '/api/v1/invoice/create', request);
+  }
+
+  // Get invoice details
+  async getInvoice(invoiceReference: string): Promise<types.MonnifyResponse<types.Invoice>> {
+    if (!invoiceReference) {
+      throw new MonnifyError('Invoice reference is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('GET', `/api/v1/invoice/${encodeURIComponent(invoiceReference)}`);
+  }
+
+  // Get all invoices
+  async getAllInvoices(page: number = 0, size: number = 10): Promise<types.MonnifyResponse<{ content: types.Invoice[] }>> {
+    return this.makeRequest('GET', `/api/v1/invoice/all?page=${page}&size=${size}`);
+  }
+
+  // Cancel invoice
+  async cancelInvoice(invoiceReference: string): Promise<types.MonnifyResponse<void>> {
+    if (!invoiceReference) {
+      throw new MonnifyError('Invoice reference is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('DELETE', `/api/v1/invoice/${encodeURIComponent(invoiceReference)}`);
+  }
+
+  // === REFUND APIs ===
+  
+  // Initiate refund
+  async initiateRefund(request: types.RefundRequest): Promise<types.MonnifyResponse<types.Refund>> {
+    return this.makeRequest('POST', '/api/v1/refunds/initiate-refund', request);
+  }
+
+  // Get refund status
+  async getRefundStatus(refundReference: string): Promise<types.MonnifyResponse<types.Refund>> {
+    if (!refundReference) {
+      throw new MonnifyError('Refund reference is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('GET', `/api/v1/refunds/${encodeURIComponent(refundReference)}`);
+  }
+
+  // === SETTLEMENT APIs ===
+  
+  // Get settlements
+  async getSettlements(page: number = 0, size: number = 10): Promise<types.MonnifyResponse<{ content: types.Settlement[] }>> {
+    return this.makeRequest('GET', `/api/v1/settlements?page=${page}&size=${size}`);
+  }
+
+  // Get settlement by ID
+  async getSettlement(settlementId: string): Promise<types.MonnifyResponse<types.Settlement>> {
+    if (!settlementId) {
+      throw new MonnifyError('Settlement ID is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('GET', `/api/v1/settlements/${encodeURIComponent(settlementId)}`);
+  }
+
+  // === CARD TOKENIZATION APIs ===
+  
+  // Tokenize card
+  async tokenizeCard(request: types.CardTokenRequest): Promise<types.MonnifyResponse<types.CardToken>> {
+    return this.makeRequest('POST', '/api/v1/sdk/transactions/card/tokenize', request);
+  }
+
+  // Charge tokenized card
+  async chargeTokenizedCard(token: string, amount: number, paymentReference: string): Promise<types.MonnifyResponse<types.Transaction>> {
+    return this.makeRequest('POST', '/api/v1/sdk/transactions/card/charge-token', {
+      token,
+      amount,
+      paymentReference
+    });
+  }
+
+  // === DIRECT DEBIT APIs ===
+  
+  // Initiate direct debit
+  async initiateDirectDebit(request: types.DirectDebitRequest): Promise<types.MonnifyResponse<types.Transaction>> {
+    return this.makeRequest('POST', '/api/v1/sdk/transactions/debit-account', request);
+  }
+
+  // === USSD PAYMENT APIs ===
+  
+  // Generate USSD payment code
+  async generateUSSDPayment(request: types.USSDPaymentRequest): Promise<types.MonnifyResponse<{ ussdCode: string }>> {
+    return this.makeRequest('POST', '/api/v1/sdk/transactions/ussd/generate', request);
+  }
+
+  // === VIRTUAL ACCOUNT APIs ===
+  
+  // Create virtual account
+  async createVirtualAccount(request: types.VirtualAccountRequest): Promise<types.MonnifyResponse<types.ReservedAccount>> {
+    return this.makeRequest('POST', '/api/v1/bank-transfer/virtual-accounts', request);
+  }
+
+  // === MERCHANT PROFILE APIs ===
+  
+  // Get merchant profile
+  async getMerchantProfile(): Promise<types.MonnifyResponse<types.MerchantProfile>> {
+    return this.makeRequest('GET', '/api/v1/merchant/profile');
+  }
+
+  // Update merchant profile
+  async updateMerchantProfile(request: Partial<types.MerchantProfile>): Promise<types.MonnifyResponse<types.MerchantProfile>> {
+    return this.makeRequest('PUT', '/api/v1/merchant/profile', request);
+  }
+
+  // === TRANSACTION STATISTICS APIs ===
+  
+  // Get transaction statistics
+  async getTransactionStatistics(startDate: string, endDate: string): Promise<types.MonnifyResponse<types.TransactionStats>> {
+    return this.makeRequest('GET', `/api/v1/transactions/stats?startDate=${startDate}&endDate=${endDate}`);
+  }
+
+  // === BVN VERIFICATION APIs ===
+  
+  // Verify BVN
+  async verifyBVN(request: types.BVNVerificationRequest): Promise<types.MonnifyResponse<types.BVNVerification>> {
+    return this.makeRequest('POST', '/api/v1/vas/bvn-details-match', request);
+  }
+
+  // === PAYMENT LINK APIs ===
+  
+  // Create payment link
+  async createPaymentLink(request: types.PaymentLinkRequest): Promise<types.MonnifyResponse<types.PaymentLink>> {
+    return this.makeRequest('POST', '/api/v1/merchant/payment-links', request);
+  }
+
+  // Get payment link
+  async getPaymentLink(paymentReference: string): Promise<types.MonnifyResponse<types.PaymentLink>> {
+    if (!paymentReference) {
+      throw new MonnifyError('Payment reference is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('GET', `/api/v1/merchant/payment-links/${encodeURIComponent(paymentReference)}`);
+  }
+
+  // === ADDITIONAL UTILITY APIs ===
+  
+  // Get transaction by customer email
+  async getTransactionsByCustomerEmail(customerEmail: string, page: number = 0, size: number = 10): Promise<types.MonnifyResponse<{ content: types.Transaction[] }>> {
+    if (!customerEmail) {
+      throw new MonnifyError('Customer email is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('GET', `/api/v1/transactions/search-by-email?email=${encodeURIComponent(customerEmail)}&page=${page}&size=${size}`);
+  }
+
+  // Get transaction by date range
+  async getTransactionsByDateRange(startDate: string, endDate: string, page: number = 0, size: number = 10): Promise<types.MonnifyResponse<{ content: types.Transaction[] }>> {
+    return this.makeRequest('GET', `/api/v1/transactions/search-by-date?startDate=${startDate}&endDate=${endDate}&page=${page}&size=${size}`);
+  }
+
+  // Resend webhook
+  async resendWebhook(transactionReference: string): Promise<types.MonnifyResponse<void>> {
+    if (!transactionReference) {
+      throw new MonnifyError('Transaction reference is required', 'INVALID_PARAMETER');
+    }
+    return this.makeRequest('POST', `/api/v1/transactions/${encodeURIComponent(transactionReference)}/resend-webhook`);
+  }
 }

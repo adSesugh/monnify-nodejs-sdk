@@ -1,17 +1,22 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'eslint:recommended',
-    '@typescript-eslint/recommended'
+    'eslint:recommended'
   ],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module'
   },
+  env: {
+    node: true,
+    es6: true
+  },
   rules: {
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': 'error',
-    'no-console': 'off'
+    'no-unused-vars': 'error',
+    'no-console': 'off',
+    'prefer-const': 'error',
+    'no-var': 'error',
+    'no-dupe-class-members': 'error'
   },
   ignorePatterns: ['lib/', 'node_modules/', 'examples/', 'tests/']
 };

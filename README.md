@@ -1,6 +1,7 @@
 # Monnify Node.js SDK
 
-[![npm version](https://badge.fury.io/js/%40adsesugh%2Fmonnify-nodejs-sdk.svg)](https://badge.fury.io/js/%40adsesugh%2Fmonnify-nodejs-sdk)
+[![npm version](https://badge.fury.io/js/%40adsesugh%2Fmonnify-nodejs-sdk.svg)](https://www.npmjs.com/package/@adsesugh/monnify-nodejs-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/@adsesugh/monnify-nodejs-sdk.svg)](https://www.npmjs.com/package/@adsesugh/monnify-nodejs-sdk)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A comprehensive, production-ready Node.js SDK for integrating with the Monnify Payment Gateway API. Accept payments via cards, bank transfers, and USSD with robust error handling and TypeScript support.
@@ -11,15 +12,28 @@ A comprehensive, production-ready Node.js SDK for integrating with the Monnify P
 - 🔒 **Secure**: Built-in webhook signature verification and secure authentication
 - 📝 **TypeScript**: Full TypeScript support with detailed type definitions
 - 🔄 **Auto-retry**: Automatic token refresh and request retry mechanisms
-- 📊 **Complete API Coverage**: All Monnify API endpoints supported
+- 📊 **Complete API Coverage**: All Monnify API endpoints supported (40+ methods)
 - 🛡️ **Error Handling**: Custom error classes with detailed error codes
 - 🧪 **Fully Tested**: Comprehensive test suite with 95%+ coverage
 - 📖 **Well Documented**: Extensive documentation with examples
+- 💳 **Advanced Features**: Card tokenization, BVN verification, payment links
+- 📊 **Business Tools**: Sub-accounts, invoices, refunds, settlements
 
 ## Installation
 
+[![NPM](https://nodei.co/npm/@adsesugh/monnify-nodejs-sdk.png?downloads=true&downloadRank=true&stars=true)](https://www.npmjs.com/package/@adsesugh/monnify-nodejs-sdk)
+
 ```bash
 npm install @adsesugh/monnify-nodejs-sdk
+```
+
+**Alternative package managers:**
+```bash
+# Using Yarn
+yarn add @adsesugh/monnify-nodejs-sdk
+
+# Using pnpm
+pnpm add @adsesugh/monnify-nodejs-sdk
 ```
 
 ## Quick Start
@@ -241,6 +255,118 @@ console.log('Available Balance:', balance.responseBody.availableBalance);
 const walletBalance = await monnify.getWalletBalance('wallet-id');
 ```
 
+### Sub-Account Management
+
+#### Create Sub-Account
+
+```typescript
+const subAccount = await monnify.createSubAccount({
+  subAccountCode: 'SUB001',
+  businessName: 'Partner Business',
+  businessEmail: 'partner@example.com',
+  businessMobile: '08012345678',
+  businessAddress: '123 Business Street',
+  percentageCommission: 2.5
+});
+```
+
+#### Get All Sub-Accounts
+
+```typescript
+const subAccounts = await monnify.getSubAccounts(0, 20); // page, size
+console.log('Sub-accounts:', subAccounts.responseBody.content);
+```
+
+### Invoice Management
+
+#### Create Invoice
+
+```typescript
+const invoice = await monnify.createInvoice({
+  amount: 50000,
+  invoiceReference: 'INV-001',
+  description: 'Service payment',
+  customerName: 'John Doe',
+  customerEmail: 'john@example.com',
+  expiryDate: '2024-12-31'
+});
+
+console.log('Invoice URL:', invoice.responseBody.invoiceUrl);
+```
+
+### Refund Management
+
+#### Initiate Refund
+
+```typescript
+const refund = await monnify.initiateRefund({
+  transactionReference: 'TXN-123',
+  refundAmount: 25000,
+  refundReference: 'REF-001',
+  customerNote: 'Partial refund requested'
+});
+```
+
+### Card Tokenization
+
+#### Tokenize Card
+
+```typescript
+const cardToken = await monnify.tokenizeCard({
+  pan: '5060666666666666666',
+  expiryMonth: '03',
+  expiryYear: '50',
+  cvv: '123',
+  pin: '1234'
+});
+
+console.log('Card Token:', cardToken.responseBody.token);
+```
+
+### Payment Links
+
+#### Create Payment Link
+
+```typescript
+const paymentLink = await monnify.createPaymentLink({
+  amount: 75000,
+  description: 'Product payment',
+  customerName: 'Jane Doe',
+  customerEmail: 'jane@example.com'
+});
+
+console.log('Payment Link:', paymentLink.responseBody.checkoutUrl);
+```
+
+### BVN Verification
+
+#### Verify BVN
+
+```typescript
+const verification = await monnify.verifyBVN({
+  bvn: '12345678901',
+  name: 'John Doe',
+  dateOfBirth: '1990-01-01',
+  mobileNumber: '08012345678'
+});
+
+console.log('Verification Status:', verification.responseBody.verificationStatus);
+```
+
+### Additional Utilities
+
+#### Get Transactions by Customer Email
+
+```typescript
+const transactions = await monnify.getTransactionsByCustomerEmail('john@example.com');
+```
+
+#### Resend Webhook
+
+```typescript
+await monnify.resendWebhook('TXN-123');
+```
+
 ### Webhook Verification
 
 ```typescript
@@ -460,15 +586,23 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📧 Email: asesugh@gmail.com
-- 📖 Documentation: [Monnify API Docs](https://developers.monnify.com/api/)
-- 🐛 Issues: [GitHub Issues](https://github.com/adsesugh/monnify-nodejs-sdk/issues)
+- 📦 **NPM Package**: [npmjs.com/package/@adsesugh/monnify-nodejs-sdk](https://www.npmjs.com/package/@adsesugh/monnify-nodejs-sdk)
+- 📧 **Email**: asesugh@gmail.com
+- 📖 **Documentation**: [Monnify API Docs](https://developers.monnify.com/api/)
+- 🐛 **Issues**: [GitHub Issues](https://github.com/adsesugh/monnify-nodejs-sdk/issues)
+- ⭐ **GitHub**: [github.com/adsesugh/monnify-nodejs-sdk](https://github.com/adsesugh/monnify-nodejs-sdk)
 
 ## Changelog
 
 ### v1.0.0
-- Initial release
-- Complete API coverage
-- TypeScript support
-- Comprehensive error handling
-- Production-ready features
+- Initial release with complete Monnify API coverage
+- 40+ API methods across all endpoints
+- Core features: Transactions, Reserved Accounts, Transfers
+- Advanced features: Sub-accounts, Invoices, Refunds, Settlements
+- Payment methods: Cards, Bank transfers, USSD, Direct debit
+- Business tools: Card tokenization, BVN verification, Payment links
+- TypeScript support with comprehensive type definitions
+- Production-ready error handling and retry logic
+- Comprehensive test suite with 95%+ coverage
+- Webhook signature verification
+- Automatic token management
